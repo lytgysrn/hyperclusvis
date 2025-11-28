@@ -1,0 +1,28 @@
+Package: hyperclusvis
+Type: Package
+Title: Hyperbolic Clustering Visualization
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Jane", "Doe",
+      email = "jane@example.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: Tools for hyperbolic cluster mapping method for visualization of high-dimensional data.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    stats,
+    flexclust,
+    HDclassif,
+    pgmm,
+    HDclassif,
+    ggplot2,
+    RColorBrewer,
+    grDevices
+Roxygen: list(roclets = c("collate", "namespace", "rd"))
+RoxygenNote: 7.3.3
+
+
