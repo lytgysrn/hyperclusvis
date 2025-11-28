@@ -2,7 +2,7 @@ Package: hyperclusvis
 Type: Package
 Title: Hyperbolic Clustering Visualization
 Version: 0.1.0
-Author: Christopher Cappadocia [aut], Paul D. McNicholas [aut],Siyi Wang [aut, cre]
+Author: Siyi Wang [aut, cre], Christopher Cappadocia [aut], Paul D. McNicholas [aut]
 Maintainer: Siyi Wang <wangs424@mcmaster.ca>
 Description: Tools for hyperbolic cluster mapping method for visualization of high-dimensional data.
 License: MIT + file LICENSE
@@ -19,6 +19,5 @@ Imports:
     grDevices
 Roxygen: list(roclets = c("collate", "namespace", "rd"))
 RoxygenNote: 7.3.3
-URL: https://github.com/lytgysrn/hyperclusvis
+URL: https://github.com/lytgysrn/hyperclusvis, https://lytgysrn.github.io/hyperclusvis/
 BugReports: https://github.com/lytgysrn/hyperclusvis/issues
-

@@ -260,7 +260,9 @@ ScaleData <- function(D) {
   return(A)
 }
 
-#3.2
+#' Data preprocessing
+#' @param D data matrix.
+#' @export
 PrepareData <- function(D) {
   D <- scale(D, scale=FALSE)
   D <- ScaleData(D)
