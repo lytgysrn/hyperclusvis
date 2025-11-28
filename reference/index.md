@@ -1,0 +1,14 @@
+# Package index
+
+## All functions
+
+- [`PrepareData()`](https://lytgysrn.github.io/hyperclusvis/reference/PrepareData.md)
+  : Data preprocessing
+- [`hypdist()`](https://lytgysrn.github.io/hyperclusvis/reference/hypdist.md)
+  : Hyperbolic distance in the Poincaré disk
+- [`hyperbolize()`](https://lytgysrn.github.io/hyperclusvis/reference/hyperbolize.md)
+  : Hyperbolic cluster mapping
+- [`hyperbolizeEV()`](https://lytgysrn.github.io/hyperclusvis/reference/hyperbolizeEV.md)
+  : Hyperbolic cluster mapping with multiple anchors
+- [`plot_disk()`](https://lytgysrn.github.io/hyperclusvis/reference/plot_disk.md)
+  : Plot hyperbolic embedding on the Poincaré disk
