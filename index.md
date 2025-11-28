@@ -1,2 +1,2 @@
-Tools for hyperbolic cluster mapping method for visualization of
-high-dimensional data.
+Use following codes to install the package install.packages(“devtools”)
+devtools::install_github(“lytgysrn/hyperclusvis”)
