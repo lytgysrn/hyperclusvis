@@ -2,13 +2,8 @@ Package: hyperclusvis
 Type: Package
 Title: Hyperbolic Clustering Visualization
 Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
+Author: Christopher Cappadocia [aut], Paul D. McNicholas [aut],Siyi Wang [aut, cre]
+Maintainer: Siyi Wang <wangs424@mcmaster.ca>
 Description: Tools for hyperbolic cluster mapping method for visualization of high-dimensional data.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -26,3 +21,4 @@ Roxygen: list(roclets = c("collate", "namespace", "rd"))
 RoxygenNote: 7.3.3
 URL: https://github.com/lytgysrn/hyperclusvis
 BugReports: https://github.com/lytgysrn/hyperclusvis/issues
+
