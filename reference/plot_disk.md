@@ -8,7 +8,7 @@ centroids highlighted.
 ## Usage
 
 ``` r
-plot_disk(out, numk, label = F)
+plot_disk(out, numk, label = FALSE)
 ```
 
 ## Arguments
@@ -22,7 +22,7 @@ plot_disk(out, numk, label = F)
 
 - numk:
 
-  Integer. Number of clusters .
+  Integer. Number of clusters.
 
 - label:
 
