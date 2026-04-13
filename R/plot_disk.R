@@ -1,18 +1,20 @@
 #' Plot hyperbolic embedding on the Poincaré disk
 #'
-#' Visualize the 2D hyperbolic embedding returned by \code{hyperbolizeEV()} on the Poincaré disk, with points colored by cluster
-#' and global centroids highlighted.
+#' Visualize the 2D hyperbolic embedding returned by \code{hyperbolizeEV()}
+#' on the Poincaré disk, with points colored by cluster and global centroids
+#' highlighted.
 #'
 #' @param out A list, typically the output of \code{hyperbolizeEV()} or
 #'   \code{hyperbolize()}.
-#' @param numk Integer. Number of clusters .
+#' @param numk Integer. Number of clusters.
 #' @param label Logical. If \code{TRUE}, show a color legend; otherwise hide it.
 #'
 #' @return A \code{ggplot} object representing the Poincaré disk visualization.
+#' @importFrom rlang .data
 #' @export
-plot_disk<-function(out,numk,label=F){
-  if (numk>10){
-    get_colors <- function(numk){
+plot_disk <- function(out, numk, label = FALSE) {
+  if (numk > 10) {
+    get_colors <- function(numk) {
       base_cols <- RColorBrewer::brewer.pal(12, "Set3")
       grDevices::colorRampPalette(base_cols)(numk)
     }
@@ -29,11 +31,13 @@ plot_disk<-function(out,numk,label=F){
       "#999999", # Grey
       "#FFD92F", # Yellow
       "#A6CEE3"  # Light Blue
-    )
+    )[seq_len(numk)]
   }
-  if (nrow(out$points)>length(out$cluster)){
-    out$points=out$points[-1,]
+
+  if (nrow(out$points) > length(out$cluster)) {
+    out$points <- out$points[-1, , drop = FALSE]
   }
+
   plot_df <- data.frame(
     x = out$points[, 1],
     y = out$points[, 2],
@@ -43,10 +47,10 @@ plot_disk<-function(out,numk,label=F){
   centers_df <- data.frame(
     x = out$centers[, 1],
     y = out$centers[, 2],
-    cluster = factor(1:numk)
+    cluster = factor(seq_len(numk))
   )
 
-  theta <- seq(0, 2*pi, length.out = 720)
+  theta <- seq(0, 2 * pi, length.out = 720)
   circle_df <- data.frame(
     x = cos(theta),
     y = sin(theta)
@@ -55,7 +59,7 @@ plot_disk<-function(out,numk,label=F){
   p <- ggplot2::ggplot() +
     ggplot2::geom_path(
       data = circle_df,
-      ggplot2::aes(x = x, y = y),
+      ggplot2::aes(x = .data$x, y = .data$y),
       linewidth = 0.8,
       color = "grey20"
     ) +
@@ -68,35 +72,33 @@ plot_disk<-function(out,numk,label=F){
     ) +
     ggplot2::geom_point(
       data = plot_df,
-      ggplot2::aes(x = x, y = y, color = cluster),
+      ggplot2::aes(x = .data$x, y = .data$y, color = .data$cluster),
       size = 2,
       alpha = 0.9
     ) +
     ggplot2::geom_point(
-      data  = centers_df,
-      ggplot2::aes(x = x, y = y),
+      data = centers_df,
+      ggplot2::aes(x = .data$x, y = .data$y),
       shape = 8,
-      size  = 3.2,
+      size = 3.2,
       stroke = 1.1,
       color = "black"
     ) +
     ggplot2::scale_color_manual(
       values = cluster_colors,
-      guide  = "none"
+      guide = if (isTRUE(label)) "legend" else "none"
     ) +
     ggplot2::coord_equal(
-      xlim   = c(-1.02, 1.02),
-      ylim   = c(-1.02, 1.02),
+      xlim = c(-1.02, 1.02),
+      ylim = c(-1.02, 1.02),
       expand = FALSE
     ) +
     ggplot2::labs(
       title = NULL,
-      x     = NULL,
-      y     = NULL
+      x = NULL,
+      y = NULL
     ) +
     ggplot2::theme_void()
-  if (label==T){
-    p=p+ggplot2::guides(color = ggplot2::guide_legend())
-  }
+
   return(p)
 }

@@ -4,13 +4,13 @@
 \alias{plot_disk}
 \title{Plot hyperbolic embedding on the Poincaré disk}
 \usage{
-plot_disk(out, numk, label = F)
+plot_disk(out, numk, label = FALSE)
 }
 \arguments{
 \item{out}{A list, typically the output of \code{hyperbolizeEV()} or
 \code{hyperbolize()}.}
 
-\item{numk}{Integer. Number of clusters .}
+\item{numk}{Integer. Number of clusters.}
 
 \item{label}{Logical. If \code{TRUE}, show a color legend; otherwise hide it.}
 }
@@ -18,6 +18,7 @@ plot_disk(out, numk, label = F)
 A \code{ggplot} object representing the Poincaré disk visualization.
 }
 \description{
-Visualize the 2D hyperbolic embedding returned by \code{hyperbolizeEV()} on the Poincaré disk, with points colored by cluster
-and global centroids highlighted.
+Visualize the 2D hyperbolic embedding returned by \code{hyperbolizeEV()}
+on the Poincaré disk, with points colored by cluster and global centroids
+highlighted.
 }

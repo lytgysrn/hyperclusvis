@@ -16,7 +16,8 @@ Imports:
     HDclassif,
     ggplot2,
     RColorBrewer,
-    grDevices
+    grDevices,
+    rlang
 Roxygen: list(roclets = c("collate", "namespace", "rd"))
 RoxygenNote: 7.3.3
 URL: https://github.com/lytgysrn/hyperclusvis, https://lytgysrn.github.io/hyperclusvis/
