@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Hyperbolic Clustering Visualization • hyperclusvis</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Hyperbolic Clustering Visualization">
 <meta name="description" content="Tools for hyperbolic cluster mapping method for visualization of high-dimensional data.">
@@ -45,10 +45,202 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><p>Use following codes to install the package</p>
-<p>install.packages(“devtools”)</p>
-<p>devtools::install_github(“lytgysrn/hyperclusvis”)</p>
-
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="hyperclusvis">hyperclusvis<a class="anchor" aria-label="anchor" href="#hyperclusvis"></a>
+</h1></div>
+<p>Hyperbolic Cluster Mapping for Visualization of High-Dimensional Clustering Results</p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p><code>hyperclusvis</code> implements the hyperbolic cluster mapping method described in:</p>
+<blockquote>
+<p>Wang, S., Cappadocia, C. &amp; McNicholas, P.D. “Hyperbolic Cluster Mapping: A Visualization Method for Assessing Clustering Quality.”</p>
+</blockquote>
+<p>The method maps high-dimensional clustered data into the 2D Poincaré disk, producing interpretable visualizations where well-separated clusters appear as distinct regions and poorly separated clusters overlap visibly. Two versions are provided:</p>
+<ul>
+<li>
+<strong>OV (Original Version)</strong> : uses one centroid per cluster as the anchor for the mapping.</li>
+<li>
+<strong>EV (Extended Version)</strong> : uses multiple local sub-centers per cluster, capturing within-cluster structure more faithfully.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"lytgysrn/hyperclusvis"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+</h2>
+<div class="section level3">
+<h3 id="ov-single-centroid-mapping">OV: single-centroid mapping<a class="anchor" aria-label="anchor" href="#ov-single-centroid-mapping"></a>
+</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lytgysrn/hyperclusvis" class="external-link">hyperclusvis</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/hyperbolize.html">hyperbolize</a></span><span class="op">(</span></span>
+<span>  <span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>  numk       <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  preprocess <span class="op">=</span> <span class="st">"kmeansWrap"</span>,</span>
+<span>  scale      <span class="op">=</span> <span class="st">"std"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/plot_disk.html">plot_disk</a></span><span class="op">(</span><span class="va">out</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="ev-multi-anchor-mapping">EV: multi-anchor mapping<a class="anchor" aria-label="anchor" href="#ev-multi-anchor-mapping"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/hyperbolizeEV.html">hyperbolizeEV</a></span><span class="op">(</span></span>
+<span>  <span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>  numk         <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  preprocess   <span class="op">=</span> <span class="st">"kmeansWrap"</span>,</span>
+<span>  scale        <span class="op">=</span> <span class="st">"std"</span>,</span>
+<span>  kg_per_class <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  spread_scale <span class="op">=</span> <span class="fl">1.0</span>,</span>
+<span>  lambda       <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/plot_disk.html">plot_disk</a></span><span class="op">(</span><span class="va">out</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="using-your-own-cluster-labels">Using your own cluster labels<a class="anchor" aria-label="anchor" href="#using-your-own-cluster-labels"></a>
+</h3>
+<p>Both <code><a href="reference/hyperbolize.html">hyperbolize()</a></code> and <code><a href="reference/hyperbolizeEV.html">hyperbolizeEV()</a></code> accept a pre-computed label vector (or factor) through the <code>preprocess</code> argument instead of a method name:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu">my_clustering_function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/hyperbolizeEV.html">hyperbolizeEV</a></span><span class="op">(</span><span class="va">data</span>, numk <span class="op">=</span> <span class="fl">4</span>, preprocess <span class="op">=</span> <span class="va">labels</span>, scale <span class="op">=</span> <span class="st">"std"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/plot_disk.html">plot_disk</a></span><span class="op">(</span><span class="va">out</span>, <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="main-functions">Main functions<a class="anchor" aria-label="anchor" href="#main-functions"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr>
+<th>Function</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code><a href="reference/hyperbolize.html">hyperbolize()</a></code></td>
+<td>OV mapping — one centroid per cluster</td>
+</tr>
+<tr>
+<td><code><a href="reference/hyperbolizeEV.html">hyperbolizeEV()</a></code></td>
+<td>EV mapping — multiple local sub-centers per cluster</td>
+</tr>
+<tr>
+<td><code><a href="reference/plot_disk.html">plot_disk()</a></code></td>
+<td>Visualize the embedding on the Poincaré disk</td>
+</tr>
+<tr>
+<td><code><a href="reference/hypdist.html">hypdist()</a></code></td>
+<td>Compute the hyperbolic distance between two points in the disk</td>
+</tr>
+<tr>
+<td><code><a href="reference/PrepareData.html">PrepareData()</a></code></td>
+<td>Center and rescale data to a fixed average norm</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="parameters">Parameters<a class="anchor" aria-label="anchor" href="#parameters"></a>
+</h2>
+<div class="section level3">
+<h3 id="shared-parameters">Shared parameters<a class="anchor" aria-label="anchor" href="#shared-parameters"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>D</code></td>
+<td>Numeric data matrix (observations in rows, variables in columns)</td>
+</tr>
+<tr>
+<td><code>numk</code></td>
+<td>Number of clusters</td>
+</tr>
+<tr>
+<td><code>preprocess</code></td>
+<td>Clustering method (<code>"kmeansWrap"</code>, <code>"kmeans"</code>, <code>"kmedians"</code>, <code>"hddc"</code>, <code>"pgmm"</code>) or a label vector</td>
+</tr>
+<tr>
+<td><code>scale</code></td>
+<td>
+<code>"std"</code> for column standardization; <code>"norm"</code> for center-and-rescale to fixed average norm</td>
+</tr>
+<tr>
+<td><code>use_input_order</code></td>
+<td>If <code>FALSE</code> (default), centroids are reordered by a greedy TSP heuristic for better layout</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="ev-specific-parameters">EV-specific parameters<a class="anchor" aria-label="anchor" href="#ev-specific-parameters"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+</colgroup>
+<thead><tr>
+<th>Parameter</th>
+<th>Paper notation</th>
+<th>Default</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>kg_per_class</code></td>
+<td><em>G</em></td>
+<td>5</td>
+<td>Number of local sub-centers per cluster</td>
+</tr>
+<tr>
+<td><code>spread_scale</code></td>
+<td>δ</td>
+<td>1.0</td>
+<td>Contraction factor; values below 1 pull sub-centers toward the global centroid</td>
+</tr>
+<tr>
+<td><code>lambda</code></td>
+<td>λ</td>
+<td>1e-6</td>
+<td>Ridge parameter in the local projection step; larger values produce more compact layouts</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level2">
+<h2 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
+</h2>
+<p><code>stats</code>, <code>flexclust</code>, <code>HDclassif</code>, <code>pgmm</code>, <code>ggplot2</code>, <code>RColorBrewer</code>, <code>grDevices</code>, <code>rlang</code></p>
+</div>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
+<p>MIT</p>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
