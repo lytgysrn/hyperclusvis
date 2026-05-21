@@ -98,6 +98,10 @@ plot_disk(out, 4)
 
 `stats`, `flexclust`, `HDclassif`, `pgmm`, `ggplot2`, `RColorBrewer`, `grDevices`, `rlang`
 
+## Examples
+
+Representative examples used in the manuscript are provided in example_codes/run_hyper_vis.R.
+
 ## License
 
 MIT
